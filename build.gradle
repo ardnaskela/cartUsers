@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.2.6.RELEASE'
     id 'io.spring.dependency-management' version '1.0.9.RELEASE'
     id 'java'
+    id "io.freefair.lombok" version "5.0.0-rc6"
 }
 
 group = 'com.example'
@@ -23,6 +24,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -32,10 +34,20 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.3.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
     compile group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
-    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.0.2'
+    compile 'org.apache.commons:commons-collections4:4.4'
+    compile 'org.apache.commons:commons-text:1.8'
+    compile group: 'org.modelmapper', name: 'modelmapper', version: '2.3.7'
+    compile 'commons-beanutils:commons-beanutils:1.9.4'
 }
 
 test {
+    systemProperty 'spring.profiles.active', 'test'
     useJUnitPlatform()
+    reports {
+        junitXml.enabled = true
+        html.enabled = false
+    }
 }
