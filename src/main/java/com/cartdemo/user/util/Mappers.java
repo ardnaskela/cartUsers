@@ -22,7 +22,7 @@ public class Mappers {
         this.modelMapper = modelMapper;
     }
 
-    public UserEntity git userDtoToUserEntity(UserDto userDto) {
+    public UserEntity userDtoToUserEntity(UserDto userDto) {
         UserEntity userEntity = modelMapper.map(userDto, UserEntity.class);
         userEntity.setDateOfBirth(LocalDate.parse(userDto.getDateOfBirth()));
 
